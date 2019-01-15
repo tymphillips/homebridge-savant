@@ -10,7 +10,8 @@
   },
   "keywords": [
     "savant",
-    "homebridge"
+    "homebridge",
+    "homebridge-plugin"
   ],
   "author": "Horst von Wallwitz <horstsilva@gmail.com>",
   "license": "ISC",
