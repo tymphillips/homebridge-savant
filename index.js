@@ -97,7 +97,20 @@ SavantAccessory.prototype = {
     	var command = accessory[prop].replace(/''/g, '"');
 	    this.log('Command: '+command);
 		//savant.serviceRequest(command, done);
-		
+
+		request.post('http://192.168.2.67:3000/servicerequest', { "command": command }, (err, res, body) => {
+			if (err) {
+				console.log(err);
+				accessory.log('Error: ' + err);
+				callback(err || new Error('Error setting ' + accessory.name + ' to ' + state));
+			} else {
+				console.log(body.url);
+				console.log(body.explanation);
+				accessory.log('Set ' + accessory.name + ' to ' + state);
+    			callback(null);
+			}
+		})
+		/*
 		request('http://192.168.2.67:3000/' + state, { json: true }, (err, res, body) => {
 			if (err) {
 				console.log(err);
@@ -110,7 +123,7 @@ SavantAccessory.prototype = {
     			callback(null);
 			}
 		});
-
+*/
     	function done(err, rtn) {
     		if (err) {
     			accessory.log('Error: ' + err);
@@ -125,9 +138,22 @@ SavantAccessory.prototype = {
     getPowerState: function(callback) {
         this.log("Calling the function to get current state...");
     	var accessory = this;
-        var getsavant = this.queryCommand.replace(/''/g, '"');
+		var getsavant = this.queryCommand.replace(/''/g, '"');
+		
+		request('http://192.168.2.67:3000/readstate/' + getsavant, { json: true }, (err, res, body) => {
+			if (err) {
+				console.log(err);
+				accessory.log('Error: ' + err);
+				callback(err || new Error('Error setting ' + accessory.name + ' to ' + state));
+			} else {
+				console.log(body.url);
+				console.log(body.explanation);
+				accessory.log('Set ' + accessory.name + ' to ' + state);
+    			callback(null);
+			}
+		});
     
-    	savant.readState(getsavant, done);
+    	//savant.readState(getsavant, done);
 
     	function done(err, rtn) {
     		if (err) {
