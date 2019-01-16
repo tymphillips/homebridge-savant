@@ -1,8 +1,10 @@
 {
   "name": "homebridge-platform-savant",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Savant platform plugin for homebridge: https://github.com/nfarina/homebridge",
-  "dependencies": {},
+  "dependencies": {
+    "request": "^2.88.0"
+  },
   "devDependencies": {},
   "repository": {
     "type": "git",

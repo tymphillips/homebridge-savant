@@ -2,6 +2,7 @@ var Service;
 var Characteristic;
 
 var savant = require('./node_modules/savant');
+const request = require('request');
 
 module.exports = function(homebridge) {
 	Service = homebridge.hap.Service;
@@ -95,7 +96,20 @@ SavantAccessory.prototype = {
     	var prop = state + 'Command';
     	var command = accessory[prop].replace(/''/g, '"');
 	    this.log('Command: '+command);
-    	savant.serviceRequest(command, done);
+		//savant.serviceRequest(command, done);
+		
+		request('http://192.168.2.67:3000/' + state, { json: true }, (err, res, body) => {
+			if (err) {
+				console.log(err);
+				accessory.log('Error: ' + err);
+				callback(err || new Error('Error setting ' + accessory.name + ' to ' + state));
+			} else {
+				console.log(body.url);
+				console.log(body.explanation);
+				accessory.log('Set ' + accessory.name + ' to ' + state);
+    			callback(null);
+			}
+		});
 
     	function done(err, rtn) {
     		if (err) {
