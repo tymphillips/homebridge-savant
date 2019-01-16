@@ -1,7 +1,7 @@
 var Service;
 var Characteristic;
 
-var savant = require('./node_modules/savant');
+var savant = require('./savant');
 const request = require('request');
 
 module.exports = function(homebridge) {
