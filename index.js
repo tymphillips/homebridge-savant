@@ -140,6 +140,7 @@ SavantAccessory.prototype = {
     	var accessory = this;
 		var getsavant = this.queryCommand.replace(/''/g, '"');
 		
+		/*
 		request('http://192.168.2.67:3000/readstate/' + getsavant, { json: true }, (err, res, body) => {
 			if (err) {
 				console.log(err);
@@ -152,8 +153,8 @@ SavantAccessory.prototype = {
     			callback(null);
 			}
 		});
-    
-    	//savant.readState(getsavant, done);
+    */
+    	savant.readState(getsavant, done);
 
     	function done(err, rtn) {
     		if (err) {
