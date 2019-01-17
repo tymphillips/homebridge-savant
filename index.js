@@ -98,7 +98,7 @@ SavantAccessory.prototype = {
 	    this.log('Command: '+command);
 		//savant.serviceRequest(command, done);
 
-		request.post({"url": 'http://192.168.2.67:3000/servicerequest', "command": command }, (err, res, body) => {
+		request.post({"url": 'http://192.168.2.67:3000/servicerequest', "body": { "command": command }}, (err, res, body) => {
 			if (err) {
 				console.log(err);
 				accessory.log('Error: ' + err);
